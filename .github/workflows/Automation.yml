@@ -12,16 +12,6 @@ jobs:
           powershell.exe -NoProfile -InputFormat None -ExecutionPolicy AllSigned -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://dl-cli.pstmn.io/install/win64.ps1'))"
       - name: Login to Postman CLI
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
-      - name: Install NEWMAN
-        run: npm install -g newman
-             npm install -g newman-reporter-htmlextra
-      - name: CREAR CARPETA
-        run:  mkdir REPORTE_HTML
       - name: Run API tests
         run: |
           postman collection run "23639150-33a2296a-a30f-4d6f-8038-56683f03820e" -e "23639150-e01c5918-c3e1-4797-bbef-fd9303985761"
-      - name: RUN COLLECTION FROM NEWMAN
-        run: |
-          newman run API_AUTOMATION_NEWMAN_HTML.postman_collection.json -e TRELLO.postman_environment.json -r htmlextra --reporter-htmlextra-export REPORTE_HTML/report.html
-          
-     
