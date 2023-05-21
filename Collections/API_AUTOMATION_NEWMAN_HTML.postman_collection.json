@@ -1,0 +1,645 @@
+{
+	"info": {
+		"_postman_id": "33a2296a-a30f-4d6f-8038-56683f03820e",
+		"name": "API_AUTOMATION_NEWMAN_HTML",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23639150",
+		"_collection_link": "https://restless-escape-115493.postman.co/workspace/API-TRELLO~7ddcef94-dcf5-43ca-8f76-fa7085ed1da3/collection/23639150-33a2296a-a30f-4d6f-8038-56683f03820e?action=share&creator=23639150&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "REQUEST_GET",
+			"item": [
+				{
+					"name": "OBTENER_TRELLO",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"GET EXITOSO\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_TRELLO}}/1/members/me/boards?key={{APIKEY}}&token={{APITOKEN}}",
+							"host": [
+								"{{URL_TRELLO}}"
+							],
+							"path": [
+								"1",
+								"members",
+								"me",
+								"boards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIKEY}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APITOKEN}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "REQUEST_POST",
+			"item": [
+				{
+					"name": "CREAR_BOARD",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"AUTOMATION_NAME\", \"BOARD_FULL_AUTOMATION\");\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body= pm.response.json();\r",
+									"\r",
+									"pm.test(\"CHEQUEAR ESTE NAME: BOARD_FULL_AUTOMATION\", function () {\r",
+									"    pm.expect(body.name).to.eql('BOARD_FULL_AUTOMATION')\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.set(\"ID_BOARD_AUTOMATION\", body.id);\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL_TRELLO}}/1/boards/?name={{AUTOMATION_NAME}}&key={{APIKEY}}&token={{APITOKEN}}&defaultLists=true",
+							"host": [
+								"{{URL_TRELLO}}"
+							],
+							"path": [
+								"1",
+								"boards",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{AUTOMATION_NAME}}"
+								},
+								{
+									"key": "key",
+									"value": "{{APIKEY}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APITOKEN}}"
+								},
+								{
+									"key": "defaultLists",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREAR_LIST",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body= pm.response.json();\r",
+									"\r",
+									"pm.test(\"CHEQUEAR ESTE NAME : SCRENN\", function () {\r",
+									"    pm.expect(body.name).to.eql('SCRENN')\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.set(\"IDLISTS_AUTOMATION\", body.id);\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL_TRELLO}}/1/lists?key={{APIKEY}}&token={{APITOKEN}}&idBoard={{ID_BOARD_AUTOMATION}}&name=SCRENN&pos=top",
+							"host": [
+								"{{URL_TRELLO}}"
+							],
+							"path": [
+								"1",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIKEY}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APITOKEN}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{ID_BOARD_AUTOMATION}}"
+								},
+								{
+									"key": "name",
+									"value": "SCRENN"
+								},
+								{
+									"key": "pos",
+									"value": "top"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREAR_CARD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body= pm.response.json();\r",
+									"\r",
+									"pm.test(\"CHEQUEAR ESTE NAME de ESTA CARD\", function () {\r",
+									"    pm.expect(body.name).to.eql('CARD_CREADA')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"CHEQUEAR ESTE DESC de ESTA CARD\", function () {\r",
+									"    pm.expect(body.desc).to.eql('DESCRIPCION_CARD')\r",
+									"});\r",
+									"\r",
+									"pm.collectionVariables.set(\"IDCARD_AUTOMATION\", body.id);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL_TRELLO}}/1/cards?key={{APIKEY}}&token={{APITOKEN}}&idList={{IDLISTS_AUTOMATION}}&name=CARD_CREADA&desc=DESCRIPCION_CARD",
+							"host": [
+								"{{URL_TRELLO}}"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIKEY}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APITOKEN}}"
+								},
+								{
+									"key": "idList",
+									"value": "{{IDLISTS_AUTOMATION}}"
+								},
+								{
+									"key": "name",
+									"value": "CARD_CREADA"
+								},
+								{
+									"key": "desc",
+									"value": "DESCRIPCION_CARD"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "REQUEST_UPDATE",
+			"item": [
+				{
+					"name": "ACTUALIZAR_CARD",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"const body=pm.response.json()\r",
+									"pm.test(\"NAME ACTUALIZADO\", function () {\r",
+									"    pm.expect(body.name).to.eql('ACTUALIZACION_NameUpdate_CARD')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"CHEQUEAR ESTE DESC de ESTA CARD\", function () {\r",
+									"    pm.expect(body.desc).to.eql('DESCRIPTION_CARD_UPDATE')\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_TRELLO}}/1/cards/{{IDCARD_AUTOMATION}}?key={{APIKEY}}&token={{APITOKEN}}&name=ACTUALIZACION_NameUpdate_CARD&desc=DESCRIPTION_CARD_UPDATE",
+							"host": [
+								"{{URL_TRELLO}}"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{IDCARD_AUTOMATION}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIKEY}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APITOKEN}}"
+								},
+								{
+									"key": "name",
+									"value": "ACTUALIZACION_NameUpdate_CARD"
+								},
+								{
+									"key": "desc",
+									"value": "DESCRIPTION_CARD_UPDATE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ACTUALIZAR_LIST",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"const body=pm.response.json()\r",
+									"pm.test(\"NAME DEL UPDATE ES IGUAL A : 'TAREAS_PENDIENTES_UPDATE' \", function () {\r",
+									"    pm.expect(body.name).to.eql('TAREAS_PENDIENTES_UPDATE')\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{URL_TRELLO}}/1/lists/{{IDLISTS_AUTOMATION}}?key={{APIKEY}}&token={{APITOKEN}}&name=TAREAS_PENDIENTES_UPDATE&pos=bottom",
+							"host": [
+								"{{URL_TRELLO}}"
+							],
+							"path": [
+								"1",
+								"lists",
+								"{{IDLISTS_AUTOMATION}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIKEY}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APITOKEN}}"
+								},
+								{
+									"key": "name",
+									"value": "TAREAS_PENDIENTES_UPDATE"
+								},
+								{
+									"key": "pos",
+									"value": "bottom"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ARCHIVAR_LIST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"LIST ARCHIVADA EXITOSAMENTE\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{URL_TRELLO}}/1/lists/{{IDLISTS_AUTOMATION}}/closed?key={{APIKEY}}&token={{APITOKEN}}&value=true",
+							"host": [
+								"{{URL_TRELLO}}"
+							],
+							"path": [
+								"1",
+								"lists",
+								"{{IDLISTS_AUTOMATION}}",
+								"closed"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIKEY}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APITOKEN}}"
+								},
+								{
+									"key": "value",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "REQUEST_DELETE",
+			"item": [
+				{
+					"name": "ELIMINAR_CARD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"CARD ELIMINADA EXITOSAMENTE...\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_TRELLO}}/1/cards/{{IDCARD_AUTOMATION}}?key={{APIKEY}}&token={{APITOKEN}}",
+							"host": [
+								"{{URL_TRELLO}}"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{IDCARD_AUTOMATION}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIKEY}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APITOKEN}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ELIMINAR_BOARD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"BOARD ELIMINADO\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_TRELLO}}/1/boards/{{ID_BOARD_AUTOMATION}}?key={{APIKEY}}&token={{APITOKEN}}",
+							"host": [
+								"{{URL_TRELLO}}"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{ID_BOARD_AUTOMATION}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIKEY}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APITOKEN}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"REQUEST EXITOSA\", function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+					"});",
+					"",
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "APIKEY",
+			"value": "4c82a4409031a2240317d74f200ed590",
+			"type": "string"
+		},
+		{
+			"key": "APITOKEN",
+			"value": "84f32224cb827cd170148a089e8f85480a2b0b20e1d48fc2a8065e2444161b8f",
+			"type": "string"
+		},
+		{
+			"key": "AUTOMATION_NAME",
+			"value": ""
+		},
+		{
+			"key": "ID_AUTOMATION",
+			"value": ""
+		},
+		{
+			"key": "IDLISTS_AUTOMATION",
+			"value": ""
+		},
+		{
+			"key": "IDCARD_AUTOMATION",
+			"value": ""
+		},
+		{
+			"key": "ID_BOARD_AUTOMATION",
+			"value": ""
+		}
+	]
+}
